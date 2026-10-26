@@ -1,0 +1,534 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Vámonos a México</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Bungee&family=Figtree:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+/* Layout concept: a painted mural wall. Papel picado banner across the top, chunky sticker tiles for the countdown, six spray-paint portraits in a lineup. Single dark look by choice. */
+:root {
+  --bg: #150a2b;
+  --fg: #fff6e4;
+  --muted: #cbbfee;
+  --ink: #140a2e;
+  --shadow: #0a0420;
+  --pink: #ff3d8b;
+  --gold: #ffb703;
+  --teal: #19d3c0;
+  --sky: #6fd3ff;
+  --lime: #c4ee3a;
+  --violet: #b27bff;
+  --display: 'Bungee', 'Impact', 'Arial Black', sans-serif;
+  --body: 'Figtree', system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+  color-scheme: dark;
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  background: var(--bg);
+  background-image: radial-gradient(ellipse 80% 420px at 50% 60px, rgba(255, 140, 0, .22), transparent 70%);
+  background-repeat: no-repeat;
+  color: var(--fg);
+  font-family: var(--body);
+  font-size: 16px;
+  line-height: 1.5;
+}
+.banner { display: block; width: 100%; height: 70px; }
+.cut { fill: var(--bg); }
+.wrap {
+  width: 100%;
+  max-width: 1020px;
+  margin-inline: auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+  padding-block: 18px 40px;
+}
+.hero { display: flex; flex-direction: column; align-items: center; text-align: center; gap: 12px; }
+.where {
+  margin: 0;
+  font-weight: 800;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  font-size: .8rem;
+  color: var(--gold);
+}
+h1 {
+  margin: 0;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: clamp(2.3rem, 11.5vw, 5.6rem);
+  line-height: .98;
+  text-wrap: balance;
+  text-shadow: 3px 3px 0 var(--pink), 7px 7px 0 var(--shadow);
+}
+.lead {
+  margin: 10px 0 0;
+  font-family: var(--display);
+  font-size: 1.05rem;
+  letter-spacing: .06em;
+  color: var(--teal);
+}
+.tiles {
+  width: 100%;
+  max-width: 720px;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+  padding-block: 8px;
+}
+.tile {
+  min-width: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 12px 4px 10px;
+  border: 3px solid var(--fg);
+  border-radius: 14px;
+  color: var(--ink);
+  box-shadow: 6px 6px 0 var(--shadow);
+}
+.tile:nth-child(1) { background: var(--pink); transform: rotate(-2.5deg); }
+.tile:nth-child(2) { background: var(--gold); transform: rotate(1.5deg); }
+.tile:nth-child(3) { background: var(--teal); transform: rotate(-1.2deg); }
+.tile:nth-child(4) { background: var(--sky); transform: rotate(2.4deg); }
+.num {
+  font-family: var(--display);
+  font-size: clamp(1.9rem, 9vw, 4.2rem);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.lab {
+  margin-top: 6px;
+  font-weight: 800;
+  font-size: clamp(.62rem, 2.6vw, .85rem);
+  letter-spacing: .12em;
+  text-transform: uppercase;
+}
+.stage { width: 100%; max-width: 720px; display: flex; flex-direction: column; }
+.stage .tiles { position: relative; z-index: 1; padding-block: 0; }
+.heads { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 4px; width: 100%; max-width: 620px; margin-inline: auto; position: relative; z-index: 0; }
+#heads-top { margin-bottom: 14px; }
+#heads-bottom { margin-top: 8px; }
+.hd { min-width: 0; }
+.hd svg { display: block; width: 100%; height: auto; overflow: hidden; animation: bob 3.4s ease-in-out infinite; animation-delay: var(--d, 0s); }
+.hd.kid svg { width: 88%; margin-inline: auto; }
+.hd:nth-child(1) { transform: rotate(-6deg); }
+.hd:nth-child(2) { transform: rotate(4deg) translateY(-6px); }
+.hd:nth-child(3) { transform: rotate(-3deg); }
+.hd:nth-child(4) { transform: rotate(5deg) translateY(-4px); }
+#heads-bottom .hd:nth-child(2) { transform: rotate(-4deg) translateY(6px); }
+.sleeps { margin: 10px 0 0; font-weight: 700; font-size: 1.1rem; color: var(--muted); }
+.sleeps b { color: var(--fg); }
+.crew-sec { margin-top: 22px; }
+.garland { display: block; width: 100%; height: 34px; margin-top: 40px; }
+h2 {
+  margin: 0 0 8px;
+  font-family: var(--display);
+  font-weight: 400;
+  font-size: 1.5rem;
+  text-align: center;
+  color: var(--gold);
+  text-shadow: 2px 2px 0 var(--shadow);
+}
+.tag { display: block; width: max-content; max-width: 100%; margin: 3px auto 0; padding: 1px 9px; border-radius: 999px; background: var(--gold); color: var(--ink); font-weight: 800; font-size: .72rem; line-height: 1.35; transform: rotate(-2deg); box-shadow: 2px 2px 0 var(--shadow); }
+.hint { margin: 0 0 20px; text-align: center; color: var(--muted); font-size: .9rem; }
+.char, .hd { cursor: pointer; -webkit-tap-highlight-color: transparent; }
+.char:focus-visible { outline: 3px solid var(--gold); outline-offset: 4px; border-radius: 12px; }
+.crew {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 22px 6px;
+  align-items: end;
+}
+@media (min-width: 760px) { .crew { grid-template-columns: repeat(8, minmax(0, 1fr)); } }
+.char { min-width: 0; text-align: center; }
+.char svg { display: block; width: 100%; height: auto; overflow: visible; animation: bob 3.4s ease-in-out infinite; animation-delay: var(--d, 0s); }
+.char.kid svg { width: 84%; margin-inline: auto; }
+.name {
+  display: inline-block;
+  margin-top: 4px;
+  padding: 2px 12px;
+  border-radius: 999px;
+  background: var(--gold);
+  color: var(--ink);
+  font-weight: 800;
+  font-size: .85rem;
+  transform: rotate(-2deg);
+  box-shadow: 3px 3px 0 var(--shadow);
+}
+@keyframes bob { 50% { transform: translateY(-5px) rotate(.8deg); } }
+@media (prefers-reduced-motion: reduce) { .char svg, .hd svg { animation: none; } }
+.facts {
+  margin: 44px 0 0;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+  gap: 18px 28px;
+  padding: 22px;
+  border: 3px solid var(--fg);
+  border-radius: 16px;
+  background: #20103f;
+  box-shadow: 7px 7px 0 var(--shadow);
+}
+.facts div { min-width: 0; }
+.facts dt { font-family: var(--display); font-size: .85rem; letter-spacing: .08em; color: var(--pink); }
+.facts dd { margin: 4px 0 0; font-weight: 700; text-wrap: pretty; }
+</style>
+</head>
+<body>
+
+
+<svg class="banner" aria-hidden="true" focusable="false">
+  <defs>
+    <path id="flag" d="M2 6 H58 V50 L52 58 L46 50 L40 58 L34 50 L28 58 L22 50 L16 58 L10 50 L4 58 L2 50Z"/>
+    <g id="flagcut">
+      <circle class="cut" cx="30" cy="24" r="7"/>
+      <circle class="cut" cx="14" cy="16" r="2.6"/>
+      <circle class="cut" cx="46" cy="16" r="2.6"/>
+      <circle class="cut" cx="14" cy="36" r="2.6"/>
+      <circle class="cut" cx="46" cy="36" r="2.6"/>
+      <path class="cut" d="M30 34 L35 40 L30 46 L25 40Z"/>
+    </g>
+    <pattern id="pp" width="360" height="70" patternUnits="userSpaceOnUse">
+      <path d="M0 5 Q90 14 180 5 T360 5" fill="none" stroke="#fff6e4" stroke-width="2"/>
+      <g fill="#ff3d8b"><use href="#flag"/></g><use href="#flagcut"/>
+      <g transform="translate(60 0)" fill="#ffb703"><use href="#flag"/></g><use href="#flagcut" transform="translate(60 0)"/>
+      <g transform="translate(120 0)" fill="#19d3c0"><use href="#flag"/></g><use href="#flagcut" transform="translate(120 0)"/>
+      <g transform="translate(180 0)" fill="#b27bff"><use href="#flag"/></g><use href="#flagcut" transform="translate(180 0)"/>
+      <g transform="translate(240 0)" fill="#6fd3ff"><use href="#flag"/></g><use href="#flagcut" transform="translate(240 0)"/>
+      <g transform="translate(300 0)" fill="#c4ee3a"><use href="#flag"/></g><use href="#flagcut" transform="translate(300 0)"/>
+    </pattern>
+  </defs>
+  <rect width="100%" height="70" fill="url(#pp)"/>
+</svg>
+
+<main class="wrap">
+  <header class="hero">
+    <p class="where">Día de Muertos · Playa del Carmen · Oct 31 – Nov 7</p>
+    <h1>¡Vámonos a México!</h1>
+    <p class="lead" id="lead">Wheels up in</p>
+    <div class="stage">
+    <div class="heads" id="heads-top"></div>
+    <div class="tiles" id="tiles" role="timer" aria-live="off">
+      <div class="tile"><span class="num" id="n-d">00</span><span class="lab">Días</span></div>
+      <div class="tile"><span class="num" id="n-h">00</span><span class="lab">Horas</span></div>
+      <div class="tile"><span class="num" id="n-m">00</span><span class="lab">Min</span></div>
+      <div class="tile"><span class="num" id="n-s">00</span><span class="lab">Seg</span></div>
+    </div>
+    <div class="heads" id="heads-bottom"></div>
+    </div>
+    <p class="sleeps" id="sleeps"></p>
+  </header>
+
+  <svg class="garland" aria-hidden="true" focusable="false"><defs><pattern id="mg" width="40" height="34" patternUnits="userSpaceOnUse"><path d="M0 4 Q20 16 40 4" fill="none" stroke="#3bb54a" stroke-width="3"/><circle cx="20" cy="17" r="11" fill="#ffb703" stroke="#140a2e" stroke-width="3"/><circle cx="20" cy="17" r="6.5" fill="#ff8c00" stroke="#140a2e" stroke-width="2"/><circle cx="20" cy="17" r="2.4" fill="#ffd23f"/></pattern></defs><rect width="100%" height="34" fill="url(#mg)"/></svg>
+
+  <section class="crew-sec" aria-labelledby="crew-h">
+    <h2 id="crew-h">Las Calaveras</h2>
+    <p class="hint">Tap a face to wipe off the paint.</p>
+    <div class="crew" id="crew"></div>
+  </section>
+
+  <dl class="facts">
+    <div><dt>Leaving</dt><dd>Sat, Oct 31 · 5:01 AM Pacific</dd></div>
+    <div><dt>Home</dt><dd>Sat, Nov 7</dd></div>
+    <div><dt>Perfect timing</dt><dd>Día de Muertos is Nov 1–2, so we land right in the middle of it.</dd></div>
+  </dl>
+</main>
+
+<script>
+// Edit these three lines to change the trip.
+const DEPART = new Date('2026-10-31T05:01:00-07:00');
+const RETURN = new Date('2026-11-07T12:00:00-08:00');
+const NAMES = ['Nick', 'Erin', 'Libby', 'Emma', 'Jordana', 'David', 'Geanie', 'Moogs'];
+
+/* ---------- Characters ---------- */
+const INK = '#140a2e';
+const SHADOW = '#0a0420';
+const st = (w = 4) => `stroke="${INK}" stroke-width="${w}" stroke-linejoin="round" stroke-linecap="round"`;
+const FRECK = [[70,118],[80,124],[64,127],[88,128],[92,117],[108,117],[120,124],[136,127],[112,128],[130,118],[100,113],[74,132],[126,132],[84,112],[116,112],[58,120],[142,120]];
+
+const crew = [
+  { label: 'Cartoon man with swept-back gray hair and a gray goatee, grinning in a teal aloha shirt', hw: 60, skin: '#f0b28a', shade: '#d98d65', eye: '#4a2b1a', blob: '#ff3d8b', rot: -8,
+    brow: '#3b3633', bw: 9, body: 'aloha', shirt: '#19d3c0', shirt2: '#ffb703', back: 'none', hair: 'swept', hairC: '#b4b8c2', hairHi: '#f0f1f5',
+    beard: 'goatee', beardC: '#b9bdc6', must: true, hat: 'shades', mouthW: 28, cheek: true },
+  { label: 'Cartoon woman with a dark ponytail, freckles and a red hibiscus flower, wearing a striped serape scarf', hw: 54, skin: '#e8a47c', shade: '#cf845c', eye: '#4a2b1a', blob: '#19d3c0', rot: 6,
+    brow: '#3b241a', bw: 6, body: 'serape', back: 'pony', hair: 'part', hairC: '#3b241a', hairHi: '#6f4a38',
+    hat: 'hibiscus', hatC: '#ff3d57', hatX: 58, hatY: 66, freck: 8, freckC: '#a95f3a', mouthW: 27, cheek: true },
+  { label: 'Cartoon girl with light copper hair, lots of freckles and a marigold crown, wearing rust overalls', kid: true, hw: 52, skin: '#f6cdb0', shade: '#e2a98a', eye: '#4f9bd6', blob: '#6fd3ff', rot: -4,
+    brow: '#9c6a42', bw: 5, body: 'overalls', back: 'long', hair: 'side', hairC: '#c9955f', hairHi: '#ecc08f',
+    hat: 'crown', freck: 17, freckC: '#c0703f', mouthW: 25, gap: true, cheek: true },
+  { label: 'Cartoon girl with long dark wavy hair in a small sombrero and a hot pink tee', kid: true, hw: 52, skin: '#e2a47e', shade: '#c98560', eye: '#4a2b1a', blob: '#c4ee3a', rot: 10,
+    brow: '#2c1a12', bw: 5, body: 'tee', shirt: '#ff3d8b', back: 'wavy', hair: 'part', hairC: '#3a2218', hairHi: '#6a4630', locks: true,
+    hat: 'sombrero', hatC: '#19d3c0', hatB: '#ffb703', mouthW: 26, cheek: true },
+  { label: 'Cartoon woman with a short messy blonde-brown bob, gold hoop earrings, a nose ring and a tropical flower', hw: 58, skin: '#f4c3a0', shade: '#dc9f7b', eye: '#4a2b1a', blob: '#b27bff', rot: -10,
+    brow: '#6e5236', bw: 6, body: 'knit', back: 'bob', hair: 'bob', hairC: '#b48b5f', hairHi: '#e8d4a8',
+    hat: 'hibiscus', hatC: '#ff8c1a', hatX: 142, hatY: 68, hoops: true, nose: true, mouthW: 29, cheek: true },
+  { label: 'Cartoon bald man with a huge long brown beard in a big sombrero and a black hoodie, laughing', hw: 58, skin: '#eeaa88', shade: '#d98466', eye: '#6f8fa8', blob: '#ffb703', rot: 4,
+    brow: '#4a3220', bw: 8, body: 'hoodie', back: 'none', hair: 'none',
+    beard: 'long', beardC: '#5b3a22', must: true, mustC: '#5b3a22', hat: 'sombrero', hatC: '#ff3d8b', hatB: '#ffb703', mouthW: 30, crinkle: true, shine: true, cheek: true },
+  { label: 'Cartoon woman with short layered auburn hair, a marigold crown and a black floral blouse', hw: 56, skin: '#f2c4a8', shade: '#d99f80', eye: '#5a3a22', blob: '#ff8c1a', rot: -6,
+    brow: '#7a4f30', bw: 5, body: 'floral', back: 'none', hair: 'side', hairC: '#9a6a45', hairHi: '#d0a074', hat: 'crown', mouthW: 28, cheek: true },
+  { label: 'Cartoon woman with brown hair slicked back, sunglasses on her head and a skeleton-print tee', hw: 58, skin: '#f1c0a6', shade: '#d89c80', eye: '#7a5a38', blob: '#19d3c0', rot: 8,
+    brow: '#5a3d28', bw: 6, body: 'skeleton', back: 'none', hair: 'swept', hairC: '#6e4a2e', hairHi: '#b08560', hat: 'shades', mouthW: 29, cheek: true }
+];
+
+function blob(color, rot) {
+  const p = 'M26 118 Q14 48 84 26 Q164 6 184 82 Q202 160 148 212 Q86 262 40 200 Q22 168 26 118Z';
+  return `<g transform="rotate(${rot} 100 135)"><path d="${p}" transform="translate(7 8)" fill="${SHADOW}"/><path d="${p}" fill="${color}" ${st(4)}/></g>
+  <circle cx="14" cy="44" r="6" fill="${color}" ${st(3)}/><circle cx="190" cy="34" r="4" fill="${color}" ${st(2.5)}/><circle cx="196" cy="196" r="7" fill="${color}" ${st(3)}/><circle cx="8" cy="170" r="3.5" fill="${color}"/>`;
+}
+
+function backHair(c) {
+  const f = c.hairC, h = c.hairHi;
+  switch (c.back) {
+    case 'pony':
+      return `<path d="M138 60 Q198 54 192 130 Q188 192 154 218 Q176 150 146 104Z" fill="${f}" ${st(4)}/>
+      <path d="M170 84 Q184 120 172 168" fill="none" stroke="${h}" stroke-width="3" stroke-linecap="round"/>
+      <circle cx="146" cy="78" r="9" fill="#ff3d8b" ${st(3.5)}/>`;
+    case 'long':
+      return `<path d="M40 100 Q30 150 40 200 Q44 218 62 220 L138 220 Q156 218 160 200 Q170 150 160 100 Q158 38 100 40 Q42 38 40 100Z" fill="${f}" ${st(4)}/>
+      <path d="M50 130 Q46 170 54 204" fill="none" stroke="${h}" stroke-width="3" stroke-linecap="round"/>`;
+    case 'wavy':
+      return `<path d="M34 108 Q20 150 36 188 Q24 222 46 254 L154 254 Q176 222 164 188 Q180 150 166 108 Q168 40 100 40 Q32 40 34 108Z" fill="${f}" ${st(4)}/>
+      <path d="M44 130 Q36 160 48 190 Q40 214 52 238" fill="none" stroke="${h}" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M156 130 Q164 160 152 190 Q160 214 148 238" fill="none" stroke="${h}" stroke-width="3.5" stroke-linecap="round"/>`;
+    case 'bob':
+      return `<path d="M40 96 Q26 140 36 170 Q50 188 68 172 L132 172 Q150 188 164 170 Q174 140 160 96 Q158 38 100 40 Q42 38 40 96Z" fill="${f}" ${st(4)}/>
+      <path d="M36 150 L20 160 L40 168Z" fill="${f}" ${st(3.5)}/><path d="M164 150 L180 160 L160 168Z" fill="${f}" ${st(3.5)}/>`;
+    default: return '';
+  }
+}
+
+function frontHair(c) {
+  const f = c.hairC, h = c.hairHi;
+  switch (c.hair) {
+    case 'swept':
+      return `<path d="M38 102 Q28 32 100 30 Q172 32 162 102 Q152 64 100 60 Q48 64 38 102Z" fill="${f}" ${st(4)}/>
+      <path d="M60 50 Q96 36 142 54" fill="none" stroke="${h}" stroke-width="4" stroke-linecap="round"/>
+      <path d="M56 66 Q92 52 134 68" fill="none" stroke="${h}" stroke-width="3" stroke-linecap="round" opacity=".85"/>`;
+    case 'part':
+      return `<path d="M44 106 Q38 38 100 38 Q162 38 156 106 Q150 68 100 62 Q50 68 44 106Z" fill="${f}" ${st(4)}/>
+      <path d="M100 39 Q98 54 88 63" fill="none" stroke="${h}" stroke-width="3" stroke-linecap="round"/>
+      <path d="M68 54 Q82 44 94 46" fill="none" stroke="${h}" stroke-width="3" stroke-linecap="round"/>`;
+    case 'side':
+      return `<path d="M42 106 Q34 38 100 38 Q166 38 158 106 Q154 68 120 58 Q86 52 62 74 Q46 86 42 106Z" fill="${f}" ${st(4)}/>
+      <path d="M66 62 Q92 48 124 56" fill="none" stroke="${h}" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M50 92 Q54 76 66 70" fill="none" stroke="${h}" stroke-width="3" stroke-linecap="round"/>`;
+    case 'bob':
+      return `<path d="M40 102 Q32 38 100 38 Q168 38 160 102 Q154 76 130 68 Q112 60 98 76 Q72 58 54 78 Q44 88 40 102Z" fill="${f}" ${st(4)}/>
+      <path d="M68 44 L58 22 L86 40Z" fill="${f}" ${st(3.5)}/><path d="M118 40 L138 20 L134 46Z" fill="${f}" ${st(3.5)}/><path d="M92 38 L100 18 L110 38Z" fill="${f}" ${st(3.5)}/>
+      <path d="M60 70 Q80 58 96 74" fill="none" stroke="${h}" stroke-width="3.5" stroke-linecap="round"/>
+      <path d="M110 66 Q130 62 148 82" fill="none" stroke="${h}" stroke-width="3" stroke-linecap="round"/>`;
+    default: return '';
+  }
+}
+
+function bodySvg(c) {
+  const base = 'M28 270 Q28 196 74 182 Q100 196 126 182 Q172 196 172 270Z';
+  switch (c.body) {
+    case 'aloha': {
+      const dots = [[46,232],[68,252],[54,264],[132,238],[152,224],[146,260],[100,254],[92,230]];
+      return `<path d="${base}" fill="${c.shirt}" ${st(4)}/>` +
+        dots.map(d => `<circle cx="${d[0]}" cy="${d[1]}" r="6" fill="${c.shirt2}" stroke="${INK}" stroke-width="2"/>`).join('') +
+        `<path d="M74 182 L92 214 L100 194Z" fill="#fff6e4" ${st(3)}/><path d="M126 182 L108 214 L100 194Z" fill="#fff6e4" ${st(3)}/>`;
+    }
+    case 'serape':
+      return `<path d="${base}" fill="#f3ead6" ${st(4)}/>
+      <path d="M62 236 V268 M80 232 V268 M120 232 V268 M138 236 V268" stroke="#d9cdb2" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M54 190 Q100 226 146 190 L152 214 Q100 250 48 214Z" fill="#e4572e" ${st(4)}/>
+      <path d="M51 202 Q100 238 149 202" fill="none" stroke="#ffb703" stroke-width="6"/>
+      <path d="M49 210 Q100 246 151 210" fill="none" stroke="#19d3c0" stroke-width="4"/>
+      <path d="M108 232 L136 238 L130 270 L102 262Z" fill="#e4572e" ${st(3.5)}/>
+      <path d="M106 246 L133 252" stroke="#ffb703" stroke-width="5"/>`;
+    case 'overalls':
+      return `<path d="${base}" fill="#f3ead6" ${st(4)}/>
+      <path d="M70 186 L66 218" stroke="${INK}" stroke-width="13" stroke-linecap="round"/><path d="M130 186 L134 218" stroke="${INK}" stroke-width="13" stroke-linecap="round"/>
+      <path d="M70 186 L66 218" stroke="#d2542a" stroke-width="7" stroke-linecap="round"/><path d="M130 186 L134 218" stroke="#d2542a" stroke-width="7" stroke-linecap="round"/>
+      <path d="M62 218 L138 218 L144 270 L56 270Z" fill="#d2542a" ${st(4)}/>
+      <circle cx="68" cy="224" r="4.5" fill="#ffd88a" ${st(2)}/><circle cx="132" cy="224" r="4.5" fill="#ffd88a" ${st(2)}/>
+      <path d="M86 244 H114 V262 H86Z" fill="none" stroke="${INK}" stroke-width="2.5"/>`;
+    case 'tee':
+      return `<path d="${base}" fill="${c.shirt}" ${st(4)}/>
+      <path d="M76 184 Q100 212 124 184" fill="${c.skin}" ${st(3.5)}/>
+      <path d="M100 224 L104 234 L115 235 L106 242 L109 253 L100 247 L91 253 L94 242 L85 235 L96 234Z" fill="#fff6e4" ${st(2.5)}/>`;
+    case 'knit':
+      return `<path d="${base}" fill="#fbfaf4" ${st(4)}/>
+      <path d="M46 226 V268 M60 222 V268 M74 224 V268 M126 224 V268 M140 222 V268 M154 226 V268" stroke="#d8d4c6" stroke-width="3" fill="none" stroke-linecap="round"/>
+      <path d="M86 186 L100 232 L114 186" fill="none" stroke="${INK}" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"/>
+      <circle cx="100" cy="236" r="5" fill="#19d3c0" ${st(2.5)}/>`;
+    case 'floral': {
+      const fl = [[44,230],[66,252],[56,266],[134,232],[152,248],[140,264],[100,246],[88,224],[116,222]];
+      return `<path d="${base}" fill="#1d1b2e" ${st(4)}/>` + fl.map(d => `<circle cx="${d[0]}" cy="${d[1]}" r="6.5" fill="#f7b6c8"/><circle cx="${d[0]}" cy="${d[1]}" r="2.2" fill="#ffd23f"/>`).join('') + `<path d="M76 184 Q100 216 124 184" fill="${c.skin}" ${st(3.5)}/>`;
+    }
+    case 'skeleton':
+      return `<path d="${base}" fill="#17152a" ${st(4)}/>
+      <path d="M70 204 Q100 218 130 204" fill="none" stroke="#fff6e4" stroke-width="5" stroke-linecap="round"/>
+      <path d="M100 206 V270" stroke="#fff6e4" stroke-width="5"/>
+      <path d="M76 226 Q100 238 124 226 M72 244 Q100 256 128 244" fill="none" stroke="#fff6e4" stroke-width="5" stroke-linecap="round"/>
+      <path d="M82 186 L100 228 L118 186" fill="none" stroke="#cfd3dd" stroke-width="2.5"/><circle cx="100" cy="229" r="5" fill="#cfd3dd" stroke="${INK}" stroke-width="2"/>`;
+    case 'hoodie':
+      return `<path d="${base}" fill="#2c2748" ${st(4)}/>
+      <path d="M60 186 Q100 232 140 186 Q136 218 100 224 Q64 218 60 186Z" fill="#3d3762" ${st(4)}/>`;
+    default: return '';
+  }
+}
+
+function hibiscus(x, y, col) {
+  let p = '';
+  for (let i = 0; i < 5; i++) p += `<ellipse cx="0" cy="-11" rx="8" ry="12" fill="${col}" stroke="${INK}" stroke-width="3" transform="rotate(${i * 72})"/>`;
+  return `<g transform="translate(${x} ${y})">${p}<circle r="5.5" fill="#ffd23f" ${st(2.5)}/><path d="M0 0 L9 -16" stroke="${INK}" stroke-width="2.5"/><circle cx="9" cy="-16" r="3" fill="#ff7a00"/></g>`;
+}
+
+function marigold(x, y, r) {
+  return `<g transform="translate(${x} ${y})"><circle r="${r}" fill="#ffb703" ${st(3)}/><circle r="${r * 0.58}" fill="#ff8c00" ${st(2)}/><circle r="${r * 0.2}" fill="#ffd23f"/></g>`;
+}
+
+function hat(c) {
+  switch (c.hat) {
+    case 'shades':
+      return `<ellipse cx="78" cy="42" rx="18" ry="10" fill="#241b4a" ${st(3.5)}/><ellipse cx="122" cy="42" rx="18" ry="10" fill="#241b4a" ${st(3.5)}/>
+      <path d="M95 40 Q100 35 105 40" fill="none" ${st(3.5)}/><path d="M68 38 Q75 35 83 37" fill="none" stroke="#fff" stroke-width="2.5" stroke-linecap="round" opacity=".7"/>`;
+    case 'hibiscus': return hibiscus(c.hatX, c.hatY, c.hatC);
+    case 'crown': {
+      const pts = [[50,78],[75,53],[100,46],[125,53],[150,78]];
+      const leaves = [[62,64,-50],[88,48,-14],[112,48,14],[138,64,50]];
+      return leaves.map(l => `<ellipse cx="${l[0]}" cy="${l[1]}" rx="8" ry="4.5" fill="#3bb54a" ${st(2.5)} transform="rotate(${l[2]} ${l[0]} ${l[1]})"/>`).join('') +
+        pts.map(p => marigold(p[0], p[1], 11)).join('');
+    }
+    case 'sombrero': {
+      let dots = '';
+      for (let i = 0; i < 11; i++) { const t = Math.PI * (0.1 + 0.8 * i / 10); dots += `<circle cx="${(100 + 82 * Math.cos(t)).toFixed(1)}" cy="${(62 + 10 * Math.sin(t)).toFixed(1)}" r="3" fill="${c.hatB}" stroke="${INK}" stroke-width="1.5"/>`; }
+      return `<ellipse cx="100" cy="62" rx="92" ry="17" fill="${c.hatC}" ${st(4)}/>
+      <path d="M62 60 Q60 8 100 8 Q140 8 138 60 Q100 72 62 60Z" fill="${c.hatC}" ${st(4)}/>
+      <path d="M61 46 Q100 58 139 46 L138 60 Q100 72 62 60Z" fill="${c.hatB}" ${st(3)}/>${dots}`;
+    }
+    default: return '';
+  }
+}
+
+function stitches(c) {
+  let s = '';
+  [-0.78, -0.42, 0, 0.42, 0.78].forEach(k => { const x = (100 + c.mouthW * k).toFixed(1); s += `<path d="M${x} 133 L${x} 167" stroke="${INK}" stroke-width="2.4" stroke-linecap="round"/>`; });
+  return s;
+}
+function skullify(c) {
+  return { ...c, skull: true, skin: '#fbf1dc', shade: '#e0cba3', freck: 0, crinkle: false, label: c.label + ', in sugar-skull face paint' };
+}
+
+function mouth(c) {
+  const w = c.mouthW;
+  return `<path d="M${100 - w} 136 Q100 144 ${100 + w} 136 Q${100 + w - 5} 163 100 163 Q${100 - w + 5} 163 ${100 - w} 136Z" fill="#5a1a24" ${st(3.5)}/>
+  <path d="M${103 - w} 138 Q100 146 ${97 + w} 138 Q${95 + w} 150 100 152 Q${105 - w} 150 ${103 - w} 138Z" fill="#fff" />
+  ${c.gap ? '<rect x="99" y="140" width="2.4" height="9" fill="#5a1a24"/>' : ''}
+  <path d="M89 160 Q100 152 111 160 Q100 165 89 160Z" fill="#ef6f7e"/>${c.skull ? stitches(c) : ''}`;
+}
+
+function figure(c, head) {
+  const hw = c.hw;
+  let s = blob(c.blob, c.rot);
+  s += backHair(c);
+  s += `<rect x="86" y="158" width="28" height="36" fill="${c.skin}" ${st(4)}/>`;
+  s += bodySvg(c);
+  if (c.locks) s += `<path d="M44 112 Q28 162 42 216 Q60 192 57 150Z" fill="${c.hairC}" ${st(3.5)}/><path d="M156 112 Q172 162 158 216 Q140 192 143 150Z" fill="${c.hairC}" ${st(3.5)}/>`;
+  s += `<ellipse cx="${100 - hw}" cy="114" rx="10" ry="14" fill="${c.skin}" ${st(4)}/><ellipse cx="${100 + hw}" cy="114" rx="10" ry="14" fill="${c.skin}" ${st(4)}/>`;
+  if (c.hoops) s += `<circle cx="${100 - hw - 2}" cy="136" r="9" fill="none" stroke="#ffb703" stroke-width="3.2"/><circle cx="${100 + hw + 2}" cy="136" r="9" fill="none" stroke="#ffb703" stroke-width="3.2"/>`;
+  s += `<ellipse cx="100" cy="108" rx="${hw}" ry="62" fill="${c.skin}" ${st(4)}/>`;
+  if (c.shine) s += `<ellipse cx="78" cy="68" rx="14" ry="6" fill="#fff" opacity=".5" transform="rotate(-24 78 68)"/>`;
+  const pa = c.blob, pb = c.blob === '#ff3d8b' ? '#19d3c0' : '#ff3d8b';
+  if (!c.skull && c.cheek) s += `<circle cx="${100 - hw + 22}" cy="130" r="11" fill="#ff5a5a" opacity=".32"/><circle cx="${100 + hw - 22}" cy="130" r="11" fill="#ff5a5a" opacity=".32"/>`;
+  if (c.skull) [[100 - hw + 22, 136], [100 + hw - 22, 136]].forEach(([x, y]) => {
+    for (let i = 0; i < 6; i++) { const a = i * Math.PI / 3; s += `<circle cx="${(x + 7 * Math.cos(a)).toFixed(1)}" cy="${(y + 7 * Math.sin(a)).toFixed(1)}" r="3.2" fill="${i % 2 ? pb : pa}" stroke="${INK}" stroke-width="1.4"/>`; }
+    s += `<circle cx="${x}" cy="${y}" r="3" fill="#ffd23f" stroke="${INK}" stroke-width="1.4"/>`;
+  });
+  if (c.freck) s += FRECK.slice(0, c.freck).map(f => `<circle cx="${f[0]}" cy="${f[1]}" r="1.9" fill="${c.freckC}"/>`).join('');
+  if (c.beard === 'goatee') s += `<path d="M76 130 Q66 170 100 188 Q134 170 124 130 Q100 140 76 130Z" fill="${c.beardC}" ${st(3.5)}/><path d="M92 160 L90 176 M108 160 L110 176 M100 168 L100 182" stroke="#8d919b" stroke-width="2.5" stroke-linecap="round" fill="none"/>`;
+  if (c.beard === 'long') s += `<path d="M42 110 Q36 176 68 222 Q100 262 132 222 Q164 176 158 110 Q148 138 100 136 Q52 138 42 110Z" fill="${c.beardC}" ${st(4)}/>
+    <path d="M64 188 Q68 208 78 224 M136 188 Q132 208 122 224 M100 196 L100 238 M82 176 Q80 196 88 214 M118 176 Q120 196 112 214" stroke="#bdb6ab" stroke-width="3" stroke-linecap="round" fill="none"/>`;
+  s += c.skull ? `<path d="M100 113 Q90 119 94 128 Q100 123 106 128 Q110 119 100 113Z" fill="${INK}"/>` : `<ellipse cx="100" cy="120" rx="8.5" ry="6.5" fill="${c.shade}" ${st(3)}/>`;
+  if (c.nose) s += `<circle cx="92" cy="122" r="3.2" fill="none" stroke="#ffb703" stroke-width="1.8"/>`;
+  if (c.must) { const mc = c.mustC || c.beardC; s += `<path d="M70 132 Q86 122 100 130 Q114 122 130 132 Q116 143 100 135 Q84 143 70 132Z" fill="${mc}" ${st(3)}/>`; }
+  s += mouth(c);
+  [76, 124].forEach(x => {
+    s += !c.skull ? '' : `<g transform="translate(${x} 104)">` + [0, 1, 2, 3, 4, 5, 6, 7].map(i => `<ellipse cx="0" cy="-14.5" rx="4.6" ry="6.5" fill="${i % 2 ? pb : pa}" ${st(2)} transform="rotate(${i * 45})"/>`).join('') + `</g>`;
+    s += c.skull
+      ? `<ellipse cx="${x}" cy="104" rx="12" ry="13" fill="${INK}" ${st(3)}/><circle cx="${x}" cy="105" r="5" fill="${c.eye}"/><circle cx="${x + 2.2}" cy="102" r="2" fill="#fff"/>`
+      : `<ellipse cx="${x}" cy="104" rx="11" ry="12" fill="#fff" ${st(3)}/><circle cx="${x}" cy="105" r="6.6" fill="${c.eye}"/><circle cx="${x}" cy="105" r="3" fill="${INK}"/><circle cx="${x + 2.6}" cy="101.5" r="2" fill="#fff"/><path d="M${x - 11} 112 Q${x} 120 ${x + 11} 112" fill="none" stroke="${c.shade}" stroke-width="2.5" stroke-linecap="round"/>`;
+
+  });
+  if (c.crinkle) s += `<path d="M${100 - hw + 4} 98 L${100 - hw - 2} 94 M${100 - hw + 4} 106 L${100 - hw - 3} 107 M${100 + hw - 4} 98 L${100 + hw + 2} 94 M${100 + hw - 4} 106 L${100 + hw + 3} 107" stroke="${c.shade}" stroke-width="2.5" stroke-linecap="round"/>`;
+  s += `<path d="M61 91 Q76 82 91 90" fill="none" stroke="${c.brow}" stroke-width="${c.bw}" stroke-linecap="round"/><path d="M109 90 Q124 82 139 91" fill="none" stroke="${c.brow}" stroke-width="${c.bw}" stroke-linecap="round"/>`;
+  s += frontHair(c);
+  s += hat(c);
+  const attrs = head ? 'aria-hidden="true"' : `role="img" aria-label="${c.label}"`;
+  return `<svg viewBox="${head ? '-4 4 208 182' : '0 0 200 270'}" ${attrs} focusable="false">${s}</svg>`;
+}
+
+document.getElementById('crew').innerHTML = crew.map((c, i) =>
+  `<div class="char${c.kid ? ' kid' : ''}" data-i="${i}" role="button" tabindex="0" aria-label="${NAMES[i]}. Tap to show or hide the face paint." style="--d:${(i * 0.45).toFixed(2)}s">${figure(skullify(c))}${NAMES[i] ? `<span class="name">${NAMES[i]}</span>` : ''}</div>`
+).join('');
+
+const heads = crew.map((c, i) => `<div class="hd${c.kid ? ' kid' : ''}" data-i="${i}" style="--d:${(i * 0.37).toFixed(2)}s">${figure(skullify(c), true)}<span class="tag">${NAMES[i]}</span></div>`);
+document.getElementById('heads-top').innerHTML = heads.slice(0, 4).join('');
+document.getElementById('heads-bottom').innerHTML = heads.slice(4).join('');
+
+// Tap any face (lineup or around the timer) to wipe off or put back the skull paint.
+const masked = crew.map(() => true);
+function repaint(i) {
+  const c = masked[i] ? skullify(crew[i]) : crew[i];
+  document.querySelectorAll(`[data-i="${i}"]`).forEach(el => {
+    el.querySelector('svg').outerHTML = figure(c, el.classList.contains('hd'));
+  });
+}
+document.addEventListener('click', e => {
+  const el = e.target.closest('[data-i]');
+  if (!el) return;
+  const i = Number(el.dataset.i);
+  masked[i] = !masked[i];
+  repaint(i);
+});
+document.addEventListener('keydown', e => {
+  if ((e.key === 'Enter' || e.key === ' ') && e.target.matches('.char[data-i]')) { e.preventDefault(); e.target.click(); }
+});
+
+/* ---------- Countdown ---------- */
+const $ = id => document.getElementById(id);
+const pad = n => String(n).padStart(2, '0');
+function tick() {
+  const now = new Date();
+  const DAY = 864e5;
+  let target = null, mode = 'before';
+  if (now >= RETURN) mode = 'after';
+  else if (now >= DEPART) { mode = 'during'; target = RETURN; }
+  else target = DEPART;
+
+  if (mode === 'after') {
+    $('lead').textContent = 'Hasta la próxima, México';
+    $('tiles').hidden = true;
+    $('sleeps').textContent = 'What a trip.';
+    return;
+  }
+  const diff = Math.max(0, target - now);
+  $('n-d').textContent = pad(Math.floor(diff / DAY));
+  $('n-h').textContent = pad(Math.floor(diff % DAY / 36e5));
+  $('n-m').textContent = pad(Math.floor(diff % 36e5 / 6e4));
+  $('n-s').textContent = pad(Math.floor(diff % 6e4 / 1e3));
+  if (mode === 'before') {
+    const sleeps = Math.ceil(diff / DAY);
+    $('lead').textContent = 'Wheels up in';
+    $('sleeps').innerHTML = `<b>${sleeps}</b> ${sleeps === 1 ? 'sleep' : 'sleeps'} to go`;
+  } else {
+    const total = Math.round((RETURN - DEPART) / DAY) + 1;
+    const day = Math.min(total, Math.floor((now - DEPART) / DAY) + 1);
+    $('lead').textContent = '¡Estamos en México! Time left';
+    $('sleeps').innerHTML = `Day <b>${day}</b> of ${total} in Playa del Carmen`;
+  }
+}
+tick();
+setInterval(tick, 1000);
+</script>
+
+</body>
+</html>
